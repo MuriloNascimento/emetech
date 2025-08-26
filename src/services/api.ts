@@ -2,7 +2,7 @@ import axios from 'axios';
 //import { Cookies } from 'quasar';
 
 const api = axios.create({
-  baseURL: 'https://localhost:3000', // URL base da sua API
+  baseURL: 'http://localhost:3000', // URL base da sua API
   timeout: 10000, // tempo máximo para resposta
 });
 

@@ -4,6 +4,7 @@ import Cliente from 'src/models/Cliente';
 
 export const useClientesStore = defineStore('clienteStore', () => {
   // --- STATE ---
+  const cliente = ref<Cliente>({} as Cliente);
   const clientes = ref<Cliente[]>([]);
   const loading = ref(false);
 
@@ -17,9 +18,26 @@ export const useClientesStore = defineStore('clienteStore', () => {
     }
   }
 
+  async function new() {
+    try {
+      cliente.value = await Cliente.new();
+    } finally {
+      loading.value = false;
+    }
+  }
+
+  async function show(id:number) {
+    try {
+      cliente.value = await Cliente.show(id);
+    } finally {
+      loading.value = false;
+    }
+  }
+
   // --- RETURN (exposição do store) ---
   return {
     clientes,
+    cliente,
     loading,
     index,
   };
