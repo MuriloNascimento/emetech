@@ -6,39 +6,39 @@ export const useClientesStore = defineStore('clienteStore', () => {
   // --- STATE ---
   const cliente = ref<Cliente>({} as Cliente);
   const clientes = ref<Cliente[]>([]);
-  const loading = ref(false);
 
   // --- ACTIONS ---
   async function index() {
-    loading.value = true;
-    try {
-      clientes.value = await Cliente.index();
-    } finally {
-      loading.value = false;
-    }
+    clientes.value = await Cliente.index();
   }
 
-  async function new() {
-    try {
-      cliente.value = await Cliente.new();
-    } finally {
-      loading.value = false;
-    }
+  function _new() {
+    cliente.value = new Cliente();
+  }
+
+  async function save() {
+    cliente.value = await cliente.value.save();
+    await index();
+  }
+
+  async function destroy() {
+    await cliente.value.destroy();
+    _new();
+    await index();
   }
 
   async function show(id:number) {
-    try {
-      cliente.value = await Cliente.show(id);
-    } finally {
-      loading.value = false;
-    }
+    cliente.value = await Cliente.show(id);
   }
 
   // --- RETURN (exposição do store) ---
   return {
     clientes,
     cliente,
-    loading,
+    destroy,
+    show,
+    _new,
+    save,
     index,
   };
 });

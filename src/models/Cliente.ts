@@ -11,8 +11,8 @@ export default class Cliente {
         this.id = data.id || null;
         this.nome = data.nome || '';
         this.email = data.email || '';
-        this.telefone = data.email || '';
-        this.documento = data.email || '';
+        this.telefone = data.telefone || '';
+        this.documento = data.documento || '';
     }
 
     async save(): Promise<Cliente> {
